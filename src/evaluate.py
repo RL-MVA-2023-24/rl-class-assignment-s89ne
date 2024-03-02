@@ -3,8 +3,8 @@ from functools import partial
 import gymnasium as gym
 from gymnasium.wrappers import TimeLimit
 
-from env_hiv import HIVPatient
-from interface import Agent
+from src.env_hiv import HIVPatient
+from src.interface import Agent
 
 
 def evaluate_agent(agent: Agent, env: gym.Env, nb_episode: int = 10) -> float:
