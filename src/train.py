@@ -62,14 +62,14 @@ class dqn_agent:
         self.update_target_freq = config['update_target_freq'] if 'update_target_freq' in config.keys() else 20
         self.update_target_tau = config['update_target_tau'] if 'update_target_tau' in config.keys() else 0.005
 
-        self.saved_models = pd.read_csv("C:\\Users\\ezzeh\\OneDrive\\Bureau\\Master MVA\\Reinforcement Learning\\rl-class-assignment-s89ne\\models\\saved models.csv")
+        self.saved_models = pd.read_csv("./models/saved models.csv")
         self.model_index = len(self.saved_models)
         self.model_date = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M")
         if load_idx is None:
-            self.model_path = "C:\\Users\\ezzeh\\OneDrive\\Bureau\\Master MVA\\Reinforcement Learning\\rl-class-assignment-s89ne\\models\\weights\\model_" + str(self.model_index) + ".pt"
+            self.model_path = "./models/weights/model_" + str(self.model_index) + ".pt"
         else :
             self.model_index = load_idx
-            self.model_path = "C:\\Users\\ezzeh\\OneDrive\\Bureau\\Master MVA\\Reinforcement Learning\\rl-class-assignment-s89ne\\models\\weights\\model_" + str(self.model_index) + ".pt"
+            self.model_path = "./models/weights/model_" + str(self.model_index) + ".pt"
             self.model.load_state_dict(torch.load(self.model_path))
         self.dqn_type = dqn_type
         self.line = {"model_index": self.model_index,
@@ -237,7 +237,7 @@ class dqn_agent:
 
     def save(self):
         print("Saving...")
-        self.saved_models_.to_csv("C:\\Users\\ezzeh\\OneDrive\\Bureau\\Master MVA\\Reinforcement Learning\\rl-class-assignment-s89ne\\models\\saved models.csv", index=False)
+        self.saved_models_.to_csv("./models/saved models.csv", index=False)
         torch.save(self.model.state_dict(), self.model_path)
 
     def load(self):
@@ -245,7 +245,7 @@ class dqn_agent:
 
 def load_model(model_index):
       device = "cuda" if torch.cuda.is_available() else "cpu"
-      df = pd.read_csv("C:\\Users\\ezzeh\\OneDrive\\Bureau\\Master MVA\\Reinforcement Learning\\rl-class-assignment-s89ne\\models\\saved models.csv")
+      df = pd.read_csv("./models/saved models.csv")
       params = df.set_index("model_index").to_dict(orient="index")[model_index]
       weights = torch.load(params["model_path"])
 
