@@ -247,7 +247,8 @@ def load_model(model_index):
       device = "cuda" if torch.cuda.is_available() else "cpu"
       df = pd.read_csv("./models/saved models.csv")
       params = df.set_index("model_index").to_dict(orient="index")[model_index]
-      weights = torch.load(params["model_path"])
+      model_path = "./models/weights/model_" + str(model_index) + ".pt"
+      weights = torch.load(model_path)
 
       env = TimeLimit(env=HIVPatient(domain_randomization=False), max_episode_steps=220)
       # Declare network
